@@ -3,9 +3,6 @@
 This repository contains my laboratory exercises on **Operating Systems** 🧵, focusing on process scheduling and memory management algorithms.  
 These implementations showcase core OS concepts such as **CPU scheduling** and **page replacement**, written for educational purposes.
 
-By: [jcobsntos](https://github.com/jcobsntos)  
-Repo: [operating-systems-processes](https://github.com/jcobsntos/operating-systems-processes)
-
 ---
 
 ## 📂 Activities
@@ -36,7 +33,7 @@ Implements the **Optimal** page replacement algorithm.
 
 ## 🛠️ Tools & Technologies
 
-- Programming language: C / C++ / Java / Python (specify what you used)
+- Programming language: Java 
 - Command-line environment
 - Basic knowledge of operating system concepts
 
