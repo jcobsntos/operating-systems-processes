@@ -1,0 +1,88 @@
+package lab1;
+
+import java.util.Scanner;
+
+public class FcFs {
+
+    // Method to calculate waiting time and turnaround time
+    public static void calculateFCFS(int[] arrivalTimes, int[] burstTimes) {
+        int n = arrivalTimes.length;
+        int[] waitingTimes = new int[n];
+        int[] turnaroundTimes = new int[n];
+        int[] completionTimes = new int[n];
+        int completionTime = 0;
+        double totalWaitingTime = 0;
+        double totalTurnaroundTime = 0;
+
+        for (int i = 0; i < n; i++) {
+            if (i == 0) {
+                waitingTimes[i] = 0;
+            } else {
+                waitingTimes[i] = Math.max(0, completionTime - arrivalTimes[i]);
+            }
+            turnaroundTimes[i] = waitingTimes[i] + burstTimes[i];
+            completionTime = Math.max(completionTime, arrivalTimes[i]) + burstTimes[i];
+            completionTimes[i] = completionTime;
+
+            totalWaitingTime += waitingTimes[i];
+            totalTurnaroundTime += turnaroundTimes[i];
+        }
+
+        // Print the table with waiting and turnaround times
+        System.out.println("Process ID\tArrival Time\tBurst Time\tWaiting Time\tTurnaround Time");
+        for (int i = 0; i < n; i++) {
+            System.out.printf("%s\t\t%d\t\t%d\t\t%d\t\t%d%n", (char)('A' + i), arrivalTimes[i], burstTimes[i], waitingTimes[i], turnaroundTimes[i]);
+        }
+
+        // Print the Gantt Chart
+        System.out.print("\nGantt Chart:\n");
+        System.out.print("0\t");
+        for (int i = 0; i < n; i++) {
+            System.out.print(" " + (completionTimes[i]) + "\t");
+        }
+        System.out.println();
+
+        for (int i = 0; i < n; i++) {
+            System.out.print((char)('A' + i) + "\t");
+            if (i < n - 1) {
+                for (int j = 0; j < burstTimes[i]; j++) {
+                    
+                }
+            }
+        }
+        System.out.println();
+
+        System.out.printf("\nAverage Waiting Time: %.2f%n", totalWaitingTime / n);
+        System.out.printf("Average Turnaround Time: %.2f%n", totalTurnaroundTime / n);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the number of processes (3-6): ");
+        int n = scanner.nextInt();
+        if (n < 3 || n > 6) {
+            System.out.println("Number of processes must be between 3 and 6.");
+            return;
+        }
+
+        int[] arrivalTimes = new int[n];
+        int[] burstTimes = new int[n];
+
+        System.out.println("Enter arrival times and burst times:");
+        for (int i = 0; i < n; i++) {
+            System.out.printf("Process %d Arrival Time: ", i + 1);
+            arrivalTimes[i] = scanner.nextInt();
+            System.out.printf("Process %d Burst Time: ", i + 1);
+            burstTimes[i] = scanner.nextInt();
+
+            if (arrivalTimes[i] < 0 || burstTimes[i] < 0) {
+                System.out.println("Arrival time and burst time must be non-negative.");
+                return;
+            }
+        }
+
+        calculateFCFS(arrivalTimes, burstTimes);
+        scanner.close();
+    }
+}
